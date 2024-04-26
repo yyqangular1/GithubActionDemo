@@ -1,5 +1,5 @@
-name: Github Action Test
-run-name: ${{github.actor}} is learning Github Actions
+name: YYQ Github Action Test
+run-name: YYQ is learning Github Actions
 on: [push]
 jobs: 
     test: 
