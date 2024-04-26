@@ -1,0 +1,21 @@
+name: Github Action Test
+run-name: ${{github.actor}} is learning Github Actions
+on: [push]
+jobs: 
+    test: 
+        runs-on: self-hosted
+        steps:
+            - run: echo "hello test"
+            - run: echo "${{github.event_name}}"
+
+    check-version: 
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+
+
+
+
+
+
