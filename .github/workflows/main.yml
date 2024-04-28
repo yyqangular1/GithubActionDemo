@@ -1,5 +1,9 @@
 name: YYQ Github Action Test
 run-name: YYQ is learning Github Actions
+on: 
+  push: 
+    branches:
+      - sit-master
 jobs: 
     test: 
         runs-on: self-hosted
