@@ -6,19 +6,13 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: 手动触发
+run-name: 手动触发
+on: workflow_dispatch
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-jobs:
+jobs:  
   build:
-
     runs-on: self-hosted
-
     steps:
     - uses: actions/checkout@v3
     - name: Build with Maven
