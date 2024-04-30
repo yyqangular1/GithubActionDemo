@@ -55,13 +55,22 @@ jobs:
         run: mvn package
       - name: 打印输出
         run: echo 编译完成
+  # build docker image
+  docker:
+    runs-on: self-hosted
+    needs: [build]
+    steps:
+      - name: Build Docker Image
+        run: docker build --label 'biz=true' ./ -t ${myNexusHostname}:${myNexusHostedRepoPort}/${serviceName}:${envName}_${tagName}_${BUILD_NUMBER}
+      - name: 打印输出
+        run: echo 编译完成
 
   # define cd job
   deploy:
     if: github.repository == 'sit-master'
     runs-on: self-hosted
     name: Deploy to Server
-    needs: [pull, build]
+    needs: [pull, build, docker]
     steps:
       - name: deploy to sit
         run: echo 部署成功
