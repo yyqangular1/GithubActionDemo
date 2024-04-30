@@ -1,0 +1,64 @@
+# Trigger  by manual demo YAML
+name: 手动执行
+run-name: 手动执行
+
+# define env constant
+env:
+  envName: sit
+  tagName: all
+  serviceName: sf5crm-demo
+  myNexusHostname: sfcn-nexus.bmwgroup.net
+  myNexusHostedRepoPort: 15037
+  myNexusGroupRepoPort: 16037
+
+# define trigger event
+on: 
+  workflow_dispatch:
+    # define var
+    inputs:
+      releaseVersion:
+        description: '发布的版本号'
+        required: true
+        type: string
+      AFC_AND_HIL:
+        description: '是否同时发布AFC和HIL'
+        required: false
+        type: boolean
+        default: true
+        
+# define jobs
+jobs:
+  # define SCM job
+  pull:
+    runs-on: self-hosted
+    name: Pull Source From Github
+    steps:
+      - name: 开始拉取代码
+        env:
+          comment: 开始拉取代码
+        run: echo $comment
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: 结束拉取代码
+        env:
+          comment: 结束拉取代码
+        run: |
+          echo $comment
+          echo ********
+
+  # define build job
+  build:
+    runs-on: self-hosted
+    needs: [pull]
+    steps:
+      - name: Build Source With Maven
+      - run: mvn package
+      - run: echo 编译结束
+
+  # define cd job
+  deploy:
+    if: github.repository == 'sit-master'
+    runs-on: self-hosted
+    name: Deploy to Server
+    needs: [pull, build]
+    
