@@ -52,8 +52,9 @@ jobs:
     needs: [pull]
     steps:
       - name: Build Source With Maven
-      - run: mvn package
-      - run: echo 编译结束
+        run: mvn package
+      - name: 打印输出
+        run: echo 编译完成
 
   # define cd job
   deploy:
