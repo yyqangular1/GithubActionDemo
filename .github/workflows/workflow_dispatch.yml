@@ -62,4 +62,7 @@ jobs:
     runs-on: self-hosted
     name: Deploy to Server
     needs: [pull, build]
+    steps:
+      - name: deploy to sit
+        run: echo 部署成功
     
