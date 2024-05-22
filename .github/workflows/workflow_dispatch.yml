@@ -72,8 +72,8 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const response = await octokit.repos.createDispatchEvent({
-              owner: 'your_repo_owner',
-              repo: 'your_repo_name',
+              owner: 'yyqangular1',
+              repo: 'GithubActionDemo',
               event_type: 'cd_workflow_dispatch'
             });
             console.log(response);
