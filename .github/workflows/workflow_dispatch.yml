@@ -65,20 +65,14 @@ jobs:
         run: docker build --label 'biz=true' ./ -t ${myNexusHostname}:${myNexusHostedRepoPort}/${serviceName}:${envName}_${tagName}_${BUILD_NUMBER}
       - name: 打印输出
         run: echo 编译完成
-      - name: pwd
-        run: echo `pwd`
-      - name: Trigger CD Workflow
-        uses: ./.github/workflows/cd-common.yml
-        with:
-          image_type: 'yyq'
         
   # define cd job
-  #deploy:
+  deploy:
     #if: github.repository == 'sit-master'
-    #uses: ./.github/workflows/cd-common.yml
-    #with:
-    #  image_type: 'yyq'
-    #secrets: inherit
+    uses: ./.github/workflows/cd-common.yml
+    with:
+      image_type: 'yyq'
+    secrets: inherit
     
     #runs-on: self-hosted
     #name: Deploy to Server
