@@ -11,8 +11,10 @@ on:
 
 jobs:
   trigger-workflow:
-    runs-on: [ self-hosted ]
+    runs-on: [ self-hosted, node2 ]
 
     steps:
       - name: test
         run: echo ${{ inputs.image_type }}
+      - name: docker ps
+        run: docker ps
