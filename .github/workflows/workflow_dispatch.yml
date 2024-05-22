@@ -68,7 +68,7 @@ jobs:
 
   # define cd job
   deploy:
-    if: github.repository == 'sit-master'
+    #if: github.repository == 'sit-master'
     uses: ./.github/workflows/cd-common.yml
     with:
       image_type: 'yyq'
