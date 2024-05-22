@@ -66,21 +66,11 @@ jobs:
       - name: 打印输出
         run: echo 编译完成
 
-      - name: Install Octokit
-        run: npm install @octokit/action@v6.0.0
-
-      - name: Trigger CD workflow
-        uses: actions/github-script@v3
+      - name: Trigger CD Workflow
+        uses: ./.github/workflows/cd-common.yml
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const response = await octokit.repos.createDispatchEvent({
-              owner: 'yyqangular1',
-              repo: 'GithubActionDemo',
-              event_type: 'cd_workflow_dispatch'
-            });
-            console.log(response);
-
+          image_type: 'yyq'
+        
   # define cd job
   #deploy:
     #if: github.repository == 'sit-master'
