@@ -1,11 +1,13 @@
 name: test workflow call
 
 on:
-  workflow_call:
-    inputs:
-      image_type:
-        required: true
-        type: string
+  repository_dispatch:
+    types: [cd_workflow_dispatch]
+  #workflow_call:
+  #  inputs:
+  #    image_type:
+  #      required: true
+  #      type: string
 
 jobs:
   trigger-workflow:
