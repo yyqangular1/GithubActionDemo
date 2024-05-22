@@ -68,6 +68,7 @@ jobs:
         
   # define cd job
   deploy:
+    needs: [docker]
     #if: github.repository == 'sit-master'
     uses: ./.github/workflows/cd-common.yml
     with:
