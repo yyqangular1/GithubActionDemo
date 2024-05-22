@@ -15,4 +15,4 @@ jobs:
 
     steps:
       - name: test
-        run: echo "OK"
+        run: echo ${{ inputs.image_type }}
