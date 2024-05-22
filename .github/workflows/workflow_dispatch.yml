@@ -68,10 +68,15 @@ jobs:
   # define cd job
   deploy:
     if: github.repository == 'sit-master'
-    runs-on: self-hosted
-    name: Deploy to Server
-    needs: [pull, build, docker]
-    steps:
-      - name: deploy to sit
-        run: echo 部署成功
+    uses: ./.github/workflows/cd-common.yml
+    with:
+      image_type: 'yyq'
+    secrets: inherit
+    
+    #runs-on: self-hosted
+    #name: Deploy to Server
+    #needs: [pull, build, docker]
+    #steps:
+    #  - name: deploy to sit
+    #    run: echo 部署成功
     
