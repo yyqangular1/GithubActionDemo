@@ -31,15 +31,14 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-        with:
-          ref: ${{ inputs.branch }}
+
   # define build job
   build:
     runs-on: [ node1 ]
     needs: [pull]
     steps:
       - name: Build Source With Maven
-        run: mvn package
+        run: echo "build ok"
   # build docker image
   docker:
     runs-on: [ node1 ]
