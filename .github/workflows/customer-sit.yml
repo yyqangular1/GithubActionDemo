@@ -46,28 +46,10 @@ jobs:
     needs: [build]
     environment: sit
     steps:
-      - name: Login Docker
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ vars.MYNEXUSHOSTNAME }}:${{ vars.MYNEXUSHOSTEDREPOPORT }} -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: work space
         run: |
           echo `pwd`
-      - name: Build Docker Image
-        run: |
-          docker build \
-            --label 'biz=true' \
-            --build-arg HTTP_PROXY=http://${{ secrets.PROXYUSER }}:${{ secrets.PROXYPASSWORD }}@scfcnepvip.cn.bmwgroup.net:8080 \
-            --build-arg HTTPS_PROXY=http://${{ secrets.PROXYUSER }}:${{ secrets.PROXYPASSWORD }}@scfcnepvip.cn.bmwgroup.net:8080 \
-            --build-arg NO_PROXY=localhost,bmwgroup.net \
-            ./sf5crm-biz/biz-modules/sf5crm-customer \
-            -t ${{vars.myNexusHostname}}:${{vars.myNexusHostedRepoPort}}/${{ env.serviceName }}:${{vars.envName}}_${{vars.tagName}}_${{github.run_number}}
-      - name: Push Docker Image
-        run: |
-          docker push \
-            ${{vars.myNexusHostname}}:${{vars.myNexusHostedRepoPort}}/${{ env.serviceName }}:${{vars.envName}}_${{vars.tagName}}_${{github.run_number}}
-      - name: Prune Docker
-        run: |
-          docker system prune -af --filter "label=biz"
-
+      
  
   deploy:
     needs: [ docker ]
