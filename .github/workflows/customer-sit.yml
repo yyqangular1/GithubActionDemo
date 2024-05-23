@@ -43,7 +43,6 @@ jobs:
   docker:
     runs-on: [ node1 ]
     needs: [build]
-    environment: sit
     steps:
       - name: work space
         run: |
