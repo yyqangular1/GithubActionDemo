@@ -1,0 +1,15 @@
+name: Daily Auto Workflow
+ 
+on:
+  schedule:
+  - cron: '0 0 * * *'
+ 
+jobs:
+  health-check:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        runner: [node1, node2]
+    steps:
+    - name: Health Check
+      run: echo "OK"
