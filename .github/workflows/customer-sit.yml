@@ -47,6 +47,7 @@ jobs:
       - name: work space
         run: |
           echo `pwd`
+          echo ${{ env.serviceName }}
       
  
   deploy:
