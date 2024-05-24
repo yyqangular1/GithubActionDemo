@@ -56,4 +56,5 @@ jobs:
     with:
       serviceName: 'customer'
       branch: 'sit-master'
-    secrets: inherit
+    secrets: 
+      q: ${{ secrets.q }}
