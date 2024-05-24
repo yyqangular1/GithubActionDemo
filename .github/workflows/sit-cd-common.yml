@@ -29,6 +29,11 @@ on:
         required: false
         type: number
         default: 0
+      q:
+        description: 'Build Number'
+        required: false
+        type: string
+        default: ''
  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -46,4 +51,6 @@ jobs:
         run: echo "${{ secrets.q }}"
       - name: yyyy
         run: echo "${{ inputs.serviceName }}"
+      - name: zzz
+        run: echo "${{ inputs.q }}"
       
