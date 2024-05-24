@@ -7,6 +7,9 @@ run-name: CD For SIT Env
 # define trigger event
 on: 
   workflow_call:
+    secrets: 
+      Q:
+        required: false
     # define var
     inputs:
       serviceName:
@@ -51,6 +54,4 @@ jobs:
         run: echo "${{ secrets.q }}"
       - name: yyyy
         run: echo "${{ inputs.serviceName }}"
-      - name: zzz
-        run: echo "${{ inputs.q }}"
       
