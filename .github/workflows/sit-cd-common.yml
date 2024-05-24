@@ -45,5 +45,5 @@ jobs:
       - name: xxxx
         run: echo "${{ secrets.q }}"
       - name: yyyy
-        run: echo "${{ vars.port }}"
+        run: echo "${{ inputs.serviceName }}"
       
