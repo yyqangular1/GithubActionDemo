@@ -51,7 +51,9 @@ jobs:
     name: Deploy to SIT Server
     steps:
       - name: xxxx
-        run: echo "${{ secrets.q }}"
+        env: 
+          q: ${{ secrets.Q }}
+        run: echo "$q"
       - name: yyyy
         run: echo "${{ inputs.serviceName }}"
       
