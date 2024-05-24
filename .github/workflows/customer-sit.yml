@@ -53,6 +53,6 @@ jobs:
     needs: [ docker ]
     uses: ./.github/workflows/sit-cd-common.yml
     with:
-      serviceName: 'sf5crm-customer'
+      serviceName: '${{ env.serviceName }}'
       branch: 'sit-master'
     secrets: inherit
