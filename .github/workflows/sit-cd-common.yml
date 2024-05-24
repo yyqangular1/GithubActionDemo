@@ -37,6 +37,10 @@ on:
         required: false
         type: string
         default: ''
+      environment:
+        type: string
+        description: environment to deploy to
+        required: true
  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -45,6 +49,7 @@ jobs:
   deploy:
     if: ${{ inputs.branch == 'sit-master' }}
     runs-on: ${{ matrix.runner }}
+    environment: ${{ inputs.environment }}
     strategy:
       matrix:
         runner: [node2]
