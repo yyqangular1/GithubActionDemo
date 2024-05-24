@@ -53,6 +53,6 @@ jobs:
     needs: [ docker ]
     uses: ./.github/workflows/sit-cd-common.yml
     with:
-      serviceName: '${{ env.serviceName }}'
+      serviceName: '${{ serviceName }}'
       branch: 'sit-master'
     secrets: inherit
