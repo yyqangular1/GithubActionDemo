@@ -53,7 +53,7 @@ jobs:
       - name: xxxx
         env: 
           q: ${{ secrets.Q }}
-        run: echo "$q"
+        run: echo $q
       - name: yyyy
         run: echo "${{ inputs.serviceName }}"
       
