@@ -73,6 +73,7 @@ jobs:
     uses: ./.github/workflows/cd-common.yml
     with:
       image_type: 'yyq'
+      envName: ${{ env.envName }}
     secrets: inherit
     
     #runs-on: self-hosted
