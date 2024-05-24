@@ -56,5 +56,6 @@ jobs:
     with:
       serviceName: 'customer'
       branch: 'sit-master'
+      environment: sit
     secrets: 
-      Q: ${{ secrets.q }}
+      Q: ${{ secrets.Q }}
