@@ -4,7 +4,7 @@ name: customer-sit
 run-name: Deploy customer SIT
  
 env:
-  serviceName: customer
+  serviceName: customer,case
 # Controls when the workflow will run
 # define trigger event
 on: 
