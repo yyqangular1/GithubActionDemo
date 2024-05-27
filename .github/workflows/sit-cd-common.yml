@@ -60,5 +60,5 @@ jobs:
           q: ${{ secrets.Q }}
         run: echo ${q}
       - name: yyyy
-        run: echo "${{ inputs.serviceName }}"
+        run: echo "${{ fromJson(inputs.serviceName) }}"
       
