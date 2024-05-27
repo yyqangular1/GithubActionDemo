@@ -49,7 +49,7 @@ jobs:
       - name: work space
         run: |
           echo `pwd`
-          echo ${{ env.serviceName }}
+          echo "${{ env.serviceName }}"
       
  
   deploy:
