@@ -44,7 +44,7 @@ jobs:
           comment: 结束拉取代码
         run: |
           echo $comment
-          echo ********
+          echo ${{ github.repository }}
 
   # define build job
   build:
@@ -67,7 +67,7 @@ jobs:
 
   # define cd job
   deploy:
-    if: github.repository == 'sit-master'
+    if: ${{ github.repository == 'sit' }}
     runs-on: self-hosted
     name: Deploy to Server
     needs: [pull, build, docker]
