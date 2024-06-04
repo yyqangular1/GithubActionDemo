@@ -69,7 +69,7 @@ jobs:
 
   # define cd job
   deploy:
-    if: ${{GITHUB_REF_NAME == 'sit'}}
+    if: ${{github.ref_name == 'sit'}}
     runs-on: self-hosted
     name: Deploy to Server
     needs: [pull, build, docker]
