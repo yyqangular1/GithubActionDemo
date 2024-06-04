@@ -35,16 +35,18 @@ jobs:
     steps:
       - name: 开始拉取代码
         env:
-          comment: 开始拉取代码
+          comment: 开始拉取代码 ${{ github.ref }}
         run: echo $comment
       - name: checkout
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
       - name: 结束拉取代码
         env:
           comment: 结束拉取代码
         run: |
           echo $comment
-          echo ${{ github.repository }}
+          echo ${{ github.branch }}
 
   # define build job
   build:
@@ -67,7 +69,7 @@ jobs:
 
   # define cd job
   deploy:
-    if: ${{ github.repository == 'sit' }}
+    if: ${{ github.branch == 'sit' }}
     runs-on: self-hosted
     name: Deploy to Server
     needs: [pull, build, docker]
