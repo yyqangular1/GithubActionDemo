@@ -1,6 +1,6 @@
 # Trigger  by manual demo YAML
-name: 手动执行
-run-name: 手动执行
+name: 我在SIT分支手动执行
+run-name: 我在SIT分支手动执行
 
 # define env constant
 env:
