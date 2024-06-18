@@ -41,6 +41,9 @@ on:
         type: string
         description: environment to deploy to
         required: true
+      java_opt:
+        type: string
+        required: false
  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -61,4 +64,8 @@ jobs:
         run: echo ${q}
       - name: yyyy
         run: echo "${{ fromJson(inputs.serviceName) }}"
+      - name: zzzz
+        run : docker run \
+          $java_opt \
+          helloworld
       
