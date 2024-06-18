@@ -8,6 +8,9 @@ on:
       image_type:
         required: true
         type: string
+      java_opt:
+        required: false
+        type: string
 
 jobs:
   trigger-workflow:
