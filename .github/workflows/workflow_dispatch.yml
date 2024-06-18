@@ -74,6 +74,7 @@ jobs:
     with:
       image_type: 'yyq'
       envName: ${{ env.envName }}
+      java_opt: "'-Xms1024m -Xmx1024m -Xmn256m'"
     secrets: inherit
     
     #runs-on: self-hosted
