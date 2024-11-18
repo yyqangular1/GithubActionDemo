@@ -12,7 +12,10 @@ jobs:
     runs-on: [ self-hosted ]
     name: get access token from nacos
     steps:
-
+      - name: Set up Node.js (v16 LTS)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
       - name: Fetch JSON from API and process it
         uses: actions/github-script@v6
         with:
