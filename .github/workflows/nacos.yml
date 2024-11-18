@@ -12,12 +12,12 @@ jobs:
     runs-on: [ self-hosted ]
     name: get access token from nacos
     steps:
-      - name: Set up Node.js (v16 LTS)
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+      #- name: Set up Node.js (v16 LTS)
+      #  uses: actions/setup-node@v3
+      #  with:
+      #    node-version: '16'
       - name: Fetch JSON from API and process it
-        uses: actions/github-script@v6
+        uses: actions/github-script@v5
         with:
           script: |
             const url = 'http://101.133.164.217:8848/nacos/v1/auth/login';
