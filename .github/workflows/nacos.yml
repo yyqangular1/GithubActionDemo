@@ -1,0 +1,29 @@
+name: crm-demo-nacos
+run-name: crm-demo-nacos
+
+  
+# Controls when the workflow will run
+# define trigger event
+on: 
+  workflow_dispatch
+
+jobs:
+  getNacosToken:
+    runs-on: [ self-hosted ]
+    name: get access token from nacos
+    steps:
+      - name: get access token from nacos
+        run: |
+          echo `pwd`
+          RESPONSE = ${ curl -X POST 'http://101.133.164.217:8848/nacos/v1/auth/login' -d 'username=nacos&password=so-fast(Nttdata)' }
+          ##
+          ACCESS_TOKEN=$(echo $RESPONSE | jq -r '.accessToken')
+          ##
+          echo "Access Token: $ACCESS_TOKEN"
+          ##
+          echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> $GITHUB_ENV
+
+      - name: get microservice status
+        run: |
+          echo "Access Token from Nacos: $ACCESS_TOKEN"
+      
