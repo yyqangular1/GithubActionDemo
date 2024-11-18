@@ -12,6 +12,7 @@ jobs:
     runs-on: [ self-hosted ]
     name: get access token from nacos
     steps:
+
       - name: Fetch JSON from API and process it
         uses: actions/github-script@v6
         with:
@@ -35,8 +36,7 @@ jobs:
 
             const responseData = await response.json();
             console.log('Response Data:', responseData);
-            
-        
+    
       - name: get access token from nacos
         run: |
           echo `pwd`
