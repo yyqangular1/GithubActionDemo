@@ -17,7 +17,8 @@ jobs:
           echo `pwd`
           RESPONSE=$( curl -X POST 'http://101.133.164.217:8848/nacos/v1/auth/login' -d 'username=nacos&password=so-fast(Nttdata)' )
           ##
-          ACCESS_TOKEN=$(echo $RESPONSE | jq -r '.accessToken')
+          ##ACCESS_TOKEN=$(echo $RESPONSE | jq -r '.accessToken')
+          ACCESS_TOKEN=$(echo $RESPONSE | grep -oP '"accessToken"\s*:\s*"\K[^"]+')
           ##
           echo "Access Token: $ACCESS_TOKEN"
           ##
