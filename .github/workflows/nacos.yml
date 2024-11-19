@@ -17,21 +17,17 @@ jobs:
         run: |
           echo `pwd`
           RESPONSE=$( curl -X POST 'http://101.133.164.217:8848/nacos/v1/auth/login' -d 'username=nacos&password=so-fast(Nttdata)' )
-          #echo "::set-output name=nacos_response::${RESPONSE}"
           echo "nacos_response=$RESPONSE" >> $GITHUB_OUTPUT
-          echo "parse_token=${{ fromJSON(RESPONSE).accessToken }}" >> $GITHUB_OUTPUT
-          echo "parse_ttl=${{ fromJSON(RESPONSE).tokenTtl }}" >> $GITHUB_OUTPUT
-      #- name: Parse JSON
-      #  id: parse_nacos_token
-      #  run: |
-      #    #echo "::set-output name=parse_token::${{ fromJSON(steps.get_nacos_token.outputs.nacos_response).accessToken }}"
-      #    #echo "::set-output name=parse_ttl::${{ fromJSON(steps.get_nacos_token.outputs.nacos_response).tokenTtl }}"
-      #    echo "parse_token=${{ fromJSON(steps.get_nacos_token.outputs.nacos_response).accessToken }}" >> $GITHUB_OUTPUT
-      #    echo "parse_ttl=${{ fromJSON(steps.get_nacos_token.outputs.nacos_response).tokenTtl }}" >> $GITHUB_OUTPUT
+      - name: Parse JSON
+        id: parse_nacos_token
+        run: |
+          echo "parse_token=${{ fromJSON(steps.get_nacos_token.outputs.nacos_response).accessToken }}" >> $GITHUB_ENV
+          echo "parse_ttl=${{ fromJSON(steps.get_nacos_token.outputs.nacos_response).tokenTtl }}" >> $GITHUB_OUTPUT
 
       - name: get microservice status
         env:
-          token: ${{steps.get_nacos_token.outputs.parse_token}}
+          #token: ${{steps.get_nacos_token.outputs.parse_token}}
+          token: $parse_token
           ttl: ${{steps.get_nacos_token.outputs.parse_ttl}}
         run: |
           echo "Get instance list"
