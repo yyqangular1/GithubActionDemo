@@ -34,12 +34,11 @@ jobs:
         id: parse_instance_list
         run: |
           echo "parse_instance_hosts=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts }}" >> $GITHUB_OUTPUT
-          echo "yyq: ${{ fromJSON(steps.instance_response.outputs.instance_list).hosts }}"
       - name: Offline microservice
         run: |
           echo "Offline microservice"
           ##
-          echo "${{ steps.parse_instance_list.outputs.parse_instance_hosts }}"
+          echo "${{ toJSON(steps.parse_instance_list.outputs.parse_instance_hosts) }}"
           echo "orignal: ${{ toJSON(steps.parse_instance_list.outputs.parse_instance_hosts) }}"
           echo "parse: ${hosts[@]}"
           echo "${{ fromJSON(steps.parse_instance_list.outputs.parse_instance_hosts)[0].ip }}"
