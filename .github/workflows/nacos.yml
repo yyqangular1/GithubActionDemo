@@ -40,10 +40,10 @@ jobs:
           ##
           echo ${{ steps.parse_instance_list.outputs.parse_instance_hosts }}
           echo "orignal: ${{ toJSON(steps.parse_instance_list.outputs.parse_instance_hosts) }}"
-          hosts = $parse_instance_hosts
           echo "parse: ${hosts[@]}"
-          for host in "${hosts[@]}"; do
-            echo "host: $host"
+          for i in 0 1; do
+            ip="${{ fromJSON(steps.parse_instance_list.outputs.parse_instance_hosts)[i].ip }}"
+            echo "$ip"
           done
           #INSTANCE_LIST=$( curl -X PUT "http://101.133.164.217:8848/nacos/v1/ns/instance?accessToken=$parse_token" -d 'serviceName=nacos&password=so-fast(Nttdata))
           ##
