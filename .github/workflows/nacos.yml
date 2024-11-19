@@ -29,9 +29,9 @@ jobs:
 
       - name: Parse JSON
         run: |
-          parsed_data="${{ fromJSON(steps.get_nacos_token.outputs.nacos_token) }}"
-          echo "Value from API response: ${{ parsed_data.accessToken }}"
-          echo "Value from API response: ${{ parsed_data.tokenTtl }}"
+          #parsed_data="${{ fromJSON(steps.get_nacos_token.outputs.nacos_token) }}"
+          echo "Value from API response: ${{ fromJSON(steps.get_nacos_token.outputs.nacos_token).accessToken }}"
+          echo "Value from API response: ${{ fromJSON(steps.get_nacos_token.outputs.nacos_token).tokenTtl }}"
 
       - name: get microservice status
         run: |
