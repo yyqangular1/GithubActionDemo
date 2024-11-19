@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "Get instance list"
           ##
-          INSTANCE_LIST=$( curl -X GET "http://101.133.164.217:8848/nacos/v1/ns/instance/list?serviceName=so-fast-admin&groupName=SO_FAST_GROUP&accessToken=$token")
+          INSTANCE_LIST=$( curl -X GET "http://101.133.164.217:8848/nacos/v1/ns/instance/list?serviceName=so-fast-admin&groupName=SO_FAST_GROUP&accessToken=$parse_token")
           ##
           echo "instance list: $INSTANCE_LIST"
           echo "instance_list=$INSTANCE_LIST" >> $GITHUB_OUTPUT
