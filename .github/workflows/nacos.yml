@@ -38,9 +38,10 @@ jobs:
         run: |
           echo "Offline microservice"
           ##
-          echo ${parse_instance_hosts[@]}
-          for host in "${parse_instance_hosts[@]}"; do
-            echo "host: $host.ip"
+          hosts = $parse_instance_hosts
+          echo ${hosts[@]}
+          for host in "${hosts[@]}"; do
+            echo "host: $host"
           done
           #INSTANCE_LIST=$( curl -X PUT "http://101.133.164.217:8848/nacos/v1/ns/instance?accessToken=$parse_token" -d 'serviceName=nacos&password=so-fast(Nttdata))
           ##
