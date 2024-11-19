@@ -38,7 +38,7 @@ jobs:
         run: |
           echo "Offline microservice"
           ##
-          echo "${{ toJSON(steps.parse_instance_list.outputs.parse_instance_hosts) }}"
+          echo "${{ toJSON(fromJson(steps.parse_instance_list.outputs.parse_instance_hosts)) }}"
           #echo "orignal: ${{ toJSON(steps.parse_instance_list.outputs.parse_instance_hosts) }}"
           #echo "parse: ${hosts[@]}"
           #echo "${{ fromJSON(steps.parse_instance_list.outputs.parse_instance_hosts)[0].ip }}"
