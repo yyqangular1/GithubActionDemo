@@ -18,8 +18,8 @@ jobs:
         run: |
           echo `pwd`
           RESPONSE=$( curl -X POST 'http://101.133.164.217:8848/nacos/v1/auth/login' -d 'username=nacos&password=so-fast(Nttdata)' )
-          #echo "::set-output name=nacos_token::${RESPONSE}"
-          echo "response=${RESPONSE}" >> $GITHUB_OUTPUT
+          echo "::set-output name=nacos_token::${RESPONSE}"
+          #echo "response=${RESPONSE}" >> $GITHUB_OUTPUT
 
       - name: Parse JSON
         id: parse_nacos_token
