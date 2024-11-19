@@ -24,11 +24,11 @@ jobs:
       - name: Parse JSON
         id: parse_nacos_token
         run: |
-          #echo "::set-output name=parse_token::${{ fromJSON(steps.get_nacos_token.outputs.response).accessToken }}"
-          #echo "::set-output name=parse_ttl::${{ fromJSON(steps.get_nacos_token.outputs.response).tokenTtl }}"
+          echo "::set-output name=parse_token::${{ fromJSON(steps.get_nacos_token.outputs.response).accessToken }}"
+          echo "::set-output name=parse_ttl::${{ fromJSON(steps.get_nacos_token.outputs.response).tokenTtl }}"
           
-          echo "parse_token=${{ fromJSON(steps.get_nacos_token.outputs.nacos_token).accessToken }}" >> $GITHUB_OUTPUT
-          echo "parse_ttl=${{ fromJSON(steps.get_nacos_token.outputs.nacos_token).tokenTtl }}" >> $GITHUB_OUTPUT
+          #echo "parse_token=${{ fromJSON(steps.get_nacos_token.outputs.nacos_token).accessToken }}" >> $GITHUB_OUTPUT
+          #echo "parse_ttl=${{ fromJSON(steps.get_nacos_token.outputs.nacos_token).tokenTtl }}" >> $GITHUB_OUTPUT
 
       - name: get microservice status
         run: |
