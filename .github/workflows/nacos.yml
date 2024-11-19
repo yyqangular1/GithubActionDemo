@@ -33,12 +33,12 @@ jobs:
       - name: Parse instance JSON
         id: parse_instance_list
         run: |
-          echo "parse_instance_hosts=${{ toJSON(fromJSON(steps.instance_response.outputs.instance_list).hosts) }}" >> $GITHUB_ENV
+          echo "parse_instance_hosts=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts }}" >> $GITHUB_ENV
       - name: Offline microservice
         run: |
           echo "Offline microservice"
           ##
-          echo "orignal: $parse_instance_hosts"
+          echo "orignal: ${{ toJSON(parse_instance_hosts) }}"
           hosts = $parse_instance_hosts
           echo "parse: ${hosts[@]}"
           for host in "${hosts[@]}"; do
