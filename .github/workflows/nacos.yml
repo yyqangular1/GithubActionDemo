@@ -38,7 +38,7 @@ jobs:
         run: |
           echo "Offline microservice"
           ##
-          echo $parse_instance_hosts
+          echo ${parse_instance_hosts[@]}
           for host in "${parse_instance_hosts[@]}"; do
             echo "host: $host.ip"
           done
