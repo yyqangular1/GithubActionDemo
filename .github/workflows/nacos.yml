@@ -29,13 +29,14 @@ jobs:
         env:
           token: ${{steps.parse_nacos_token.outputs.parse_token}}
           ttl: ${{steps.parse_nacos_token.outputs.parse_ttl}}
+          YYQ: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYWNvcyIsImV4cCI6MTczMjAwMzMyMn0.5pE621xznqM5L4gr59gCHPyFQiT24aQAt2p6Ku-OflU"
         run: |
           token=$token
           ttl=$ttl
           echo "Access Token from Nacos: $token"
           echo "Access ttl from Nacos: $ttl"
           ##
-          INSTANCE_LIST=$( curl -X GET 'http://101.133.164.217:8848/nacos/v1/ns/instance/list?serviceName=so-fast-admin&groupName=SO_FAST_GROUP&accessToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYWNvcyIsImV4cCI6MTczMjAwMzMyMn0.5pE621xznqM5L4gr59gCHPyFQiT24aQAt2p6Ku-OflU')
+          INSTANCE_LIST=$( curl -X GET 'http://101.133.164.217:8848/nacos/v1/ns/instance/list?serviceName=so-fast-admin&groupName=SO_FAST_GROUP&accessToken=$YYQ')
           ##
           echo "instance list: $INSTANCE_LIST"
       
