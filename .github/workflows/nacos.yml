@@ -24,14 +24,19 @@ jobs:
         run: |
           echo "::set-output name=parse_token::${{ fromJSON(steps.get_nacos_token.outputs.nacos_response).accessToken }}"
           echo "::set-output name=parse_ttl::${{ fromJSON(steps.get_nacos_token.outputs.nacos_response).tokenTtl }}"
+          
+      - name: set env token
+        env:
+          token: ${{steps.parse_nacos_token.outputs.parse_token}}
+          ttl: ${{steps.parse_nacos_token.outputs.parse_ttl}}
       - name: get microservice status
         run: |
-          token=${{steps.parse_nacos_token.outputs.parse_token}}
-          ttl=${{steps.parse_nacos_token.outputs.parse_ttl}}
+          token=$token
+          ttl=$ttl
           echo "Access Token from Nacos: $token"
           echo "Access ttl from Nacos: $ttl"
           ##
-          INSTANCE_LIST=$( curl -X GET 'http://101.133.164.217:8848/nacos/v1/ns/instance/list?serviceName=so-fast-admin&groupName=SO_FAST_GROUP&accessToken=${{ token }}')
+          INSTANCE_LIST=$( curl -X GET 'http://101.133.164.217:8848/nacos/v1/ns/instance/list?serviceName=so-fast-admin&groupName=SO_FAST_GROUP&accessToken=$token')
           ##
           echo "instance list: $INSTANCE_LIST"
       
