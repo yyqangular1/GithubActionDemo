@@ -24,12 +24,11 @@ jobs:
         run: |
           echo "::set-output name=parse_token::${{ fromJSON(steps.get_nacos_token.outputs.nacos_response).accessToken }}"
           echo "::set-output name=parse_ttl::${{ fromJSON(steps.get_nacos_token.outputs.nacos_response).tokenTtl }}"
-          
-      - name: set env token
+
+      - name: get microservice status
         env:
           token: ${{steps.parse_nacos_token.outputs.parse_token}}
           ttl: ${{steps.parse_nacos_token.outputs.parse_ttl}}
-      - name: get microservice status
         run: |
           token=$token
           ttl=$ttl
