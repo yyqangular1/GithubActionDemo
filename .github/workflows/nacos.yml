@@ -31,7 +31,7 @@ jobs:
           echo "Access Token from Nacos: $token"
           echo "Access ttl from Nacos: $ttl"
           ##
-          INSTANCE_LIST=$( curl -X GET 'http://101.133.164.217:8848/nacos/v1/ns/instance/list?serviceName=so-fast-admin&groupName=SO_FAST_GROUP&accessToken=$token')
+          INSTANCE_LIST=$( curl -X GET 'http://101.133.164.217:8848/nacos/v1/ns/instance/list?serviceName=so-fast-admin&groupName=SO_FAST_GROUP&accessToken=${{ token }}')
           ##
           echo "instance list: $INSTANCE_LIST"
       
