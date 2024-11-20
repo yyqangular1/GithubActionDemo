@@ -16,42 +16,63 @@ jobs:
         id: get_nacos_token
         run: |
           echo `pwd`
+          # get token
           RESPONSE=$( curl -X POST 'http://101.133.164.217:8848/nacos/v1/auth/login' -d 'username=nacos&password=so-fast(Nttdata)' )
-          echo "nacos_response=$RESPONSE" >> $GITHUB_OUTPUT
-      - name: Parse nacos token JSON
-        id: parse_nacos_token
-        run: |
-          echo "parse_token=${{ fromJSON(steps.get_nacos_token.outputs.nacos_response).accessToken }}" >> $GITHUB_ENV
+          # parse token
+          token=$(echo "$RESPONSE" | jq -r '.accessToken')
+          # set github env
+          echo "parse_token=$token" >> $GITHUB_ENV
+      
       - name: get microservice status
         id: instance_response
         run: |
           echo "Get instance list"
-          ##
+          # get instance list
           INSTANCE_LIST=$( curl -X GET "http://101.133.164.217:8848/nacos/v1/ns/instance/list?serviceName=so-fast-admin&groupName=SO_FAST_GROUP&accessToken=$parse_token")
           echo "instance list: $INSTANCE_LIST"
-          echo "instance_list=$INSTANCE_LIST" >> $GITHUB_OUTPUT
+          
+          # get all instance ip
           ips=$(echo "$INSTANCE_LIST" | jq -r '.hosts[].ip')
           echo "ips=$(echo $ips | tr '\n' ' ')" >> $GITHUB_OUTPUT
-      - name: Parse instance JSON
-        id: parse_instance_list
-        run: |
-          echo "serviceName=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts[0].serviceName }}" >> $GITHUB_OUTPUT
-          echo "clusterName=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts[0].clusterName }}" >> $GITHUB_OUTPUT
-          ips="${{ steps.instance_response.outputs.ips }}"
-          IFS=' ' read -r -a ips_array <<< "$ips"
-          for ip in "${ips_array[@]}"; do
-            echo "Processing: $ip"
-            # 在这里执行你需要的操作
-          done
 
+          # get service name
+          serviceName=$(echo "$INSTANCE_LIST" | jq -r '.hosts[0].serviceName')
+          echo "serviceName=$serviceName" >> $GITHUB_OUTPUT
+
+          # get clusterName
+          clusterName=$(echo "$INSTANCE_LIST" | jq -r '.hosts[0].clusterName')
+          echo "clusterName=$clusterName" >> $GITHUB_OUTPUT
+
+          # get port
+          port=$(echo "$INSTANCE_LIST" | jq -r '.hosts[0].port')
+          echo "port=$port" >> $GITHUB_OUTPUT
 
       - name: Offline microservice  
         run: |
           echo "Offline microservice"
-          ##
-          echo "serviceName: ${{ steps.parse_instance_list.outputs.serviceName }}"
-          echo "clusterName: ${{ steps.parse_instance_list.outputs.clusterName }}"
+          echo "serviceName: ${{ steps.instance_response.outputs.serviceName }}"
+          echo "clusterName: ${{ steps.instance_response.outputs.clusterName }}"
+          echo "port: ${{ steps.instance_response.outputs.port }}"
           
-          #INSTANCE_LIST=$( curl -X PUT "http://101.133.164.217:8848/nacos/v1/ns/instance?accessToken=$parse_token" -d 'serviceName=nacos&password=so-fast(Nttdata))
+          ##
+          #namespaceId=
+
+          ips="${{ steps.instance_response.outputs.ips }}"
+          IFS=' ' read -r -a ips_array <<< "$ips"
+          
+          ## get array length
+          #length=${#ips_array[@]}
+          
+          for ip in "${ips_array[@]}"; do
+            echo "Processing: $ip"
+            # 在这里执行你需要的操作
+            offlineStatus=$( curl -X PUT "http://101.133.164.217:8848/nacos/v1/ns/instance?accessToken=$parse_token" -d 'serviceName=$serviceName&clusterName=$clusterName&groupName=SO_FAST_GROUP&ip=$ip&port=$port&namespaceId=$namespaceId&enabled=false)
+            if [[ "$offlineStatus" == "OK" ]]; then
+              echo "offline success"
+            fi
+          done
+
+          
+          
           ##
 
