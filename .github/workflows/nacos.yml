@@ -44,7 +44,7 @@ jobs:
           ##
           echo "serviceName: ${{ steps.parse_instance_list.outputs.serviceName }}"
           echo "clusterName: ${{ steps.parse_instance_list.outputs.clusterName }}"
-          ips=${{ steps.parse_instance_list.outputs.clusterName }}
+          ips=${{ steps.parse_instance_list.outputs.ips }}
           echo "ips: ${ips[@]}"
           echo "instance_ip: ${{ steps.parse_instance_list.outputs.ips }}"
           for element in ${{ steps.parse_instance_list.outputs.ips }}; do
