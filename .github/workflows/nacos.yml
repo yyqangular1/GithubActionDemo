@@ -55,6 +55,9 @@ jobs:
           echo "port: ${{ steps.instance_response.outputs.port }}"
           
           ##
+          serviceName="${{ steps.instance_response.outputs.serviceName }}"
+          clusterName="${{ steps.instance_response.outputs.clusterName }}"
+          port="${{ steps.instance_response.outputs.port }}"
           #namespaceId=
 
           ips="${{ steps.instance_response.outputs.ips }}"
