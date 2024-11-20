@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "serviceName=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts[0].serviceName }}" >> $GITHUB_OUTPUT
           echo "clusterName=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts[0].clusterName }}" >> $GITHUB_OUTPUT
-          echo "ips=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts.*.ip }}" >> $GITHUB_OUTPUT
+          echo "ips=${ ${{ fromJSON(steps.instance_response.outputs.instance_list).hosts.*.ip }}}" >> $GITHUB_OUTPUT
 
 
       - name: Offline microservice  
