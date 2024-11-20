@@ -37,6 +37,7 @@ jobs:
           echo "clusterName=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts[0].clusterName }}" >> $GITHUB_OUTPUT
           echo "ips=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts.*.ip }}" >> $GITHUB_OUTPUT
 
+
       - name: Offline microservice  
         run: |
           echo "Offline microservice"
@@ -44,8 +45,9 @@ jobs:
           echo "serviceName: ${{ steps.parse_instance_list.outputs.serviceName }}"
           echo "clusterName: ${{ steps.parse_instance_list.outputs.clusterName }}"
           echo "instance_ip: ${{ steps.parse_instance_list.outputs.ips }}"
-
-
+          for element in ${{ steps.parse_instance_list.outputs.ips }}; do
+            echo "Element: $element"
+          done
           #INSTANCE_LIST=$( curl -X PUT "http://101.133.164.217:8848/nacos/v1/ns/instance?accessToken=$parse_token" -d 'serviceName=nacos&password=so-fast(Nttdata))
           ##
 
