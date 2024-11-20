@@ -11,8 +11,6 @@ jobs:
   getNacosToken:
     runs-on: [ self-hosted ]
     name: get access token from nacos
-    outputs:
-      matrix: ${{ steps.parse_instance_list.outputs.ips }}
     steps:
       - name: get access token from nacos
         id: get_nacos_token
@@ -35,25 +33,17 @@ jobs:
       - name: Parse instance JSON
         id: parse_instance_list
         run: |
-          ${{ fromJson(steps.instance_response.outputs.instance_list).hosts.length }}
           echo "serviceName=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts[0].serviceName }}" >> $GITHUB_OUTPUT
           echo "clusterName=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts[0].clusterName }}" >> $GITHUB_OUTPUT
           echo "ips=${{ fromJSON(steps.instance_response.outputs.instance_list).hosts.*.ip }}" >> $GITHUB_OUTPUT
 
-  deployService:
-    needs: getNacosToken
-    runs-on: [ self-hosted ]
-    name: deploy microservice
-    strategy:
-      matrix: ${{ fromJson(needs.getNacosToken.outputs.ips) }}
-    steps:
       - name: Offline microservice  
         run: |
           echo "Offline microservice"
           ##
-          echo "serviceName: ${{ needs.getNacosToken.outputs.serviceName }}"
-          echo "clusterName: ${{ needs.getNacosToken.outputs.clusterName }}"
-          echo "instance_ip: ${{ needs.getNacosToken.outputs.instance_ip }}"
+          echo "serviceName: ${{ steps.parse_instance_list.outputs.serviceName }}"
+          echo "clusterName: ${{ steps.parse_instance_list.outputs.clusterName }}"
+          echo "instance_ip: ${{ steps.parse_instance_list.outputs.ips }}"
 
 
           #INSTANCE_LIST=$( curl -X PUT "http://101.133.164.217:8848/nacos/v1/ns/instance?accessToken=$parse_token" -d 'serviceName=nacos&password=so-fast(Nttdata))
