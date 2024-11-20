@@ -67,7 +67,8 @@ jobs:
             echo "Processing: $ip"
             # 在这里执行你需要的操作
             offlineStatus=$( curl -X PUT "http://101.133.164.217:8848/nacos/v1/ns/instance?accessToken=$parse_token" -d 'serviceName=$serviceName&clusterName=$clusterName&groupName=SO_FAST_GROUP&ip=$ip&port=$port&namespaceId=$namespaceId&enabled=false')
-            if [[ "$offlineStatus" == "OK" ]]; then
+            echo "offlineStatus: $offlineStatus"
+            if [[ "$offlineStatus" == "ok" ]]; then
               echo "offline success"
             fi
           done
