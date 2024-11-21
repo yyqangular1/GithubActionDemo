@@ -13,6 +13,16 @@ on:
 
 
 jobs:
+  pull:
+    runs-on: [ sf5crm-cicd ]
+    name: Pull Source From Github
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          ref: 'main'
+          path: 'sit'
+
   deploy:
     runs-on: [ self-hosted ]
     name: rolling update deploy
