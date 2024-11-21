@@ -23,4 +23,4 @@ jobs:
           echo `pwd`
           cd /root/yyq
           echo `pwd`
-          ./uat-crm-rolling-update.sh $serviceName
+          ./uat-crm-rolling-update.sh ${{inputs.serviceName}}
