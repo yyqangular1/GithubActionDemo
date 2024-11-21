@@ -14,7 +14,7 @@ on:
 
 jobs:
   pull:
-    runs-on: [ sf5crm-cicd ]
+    runs-on: [ self-hosted ]
     name: Pull Source From Github
     steps:
       - name: checkout
